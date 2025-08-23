@@ -1,0 +1,22 @@
+// models/timelog_model.dart
+class TimeLogModel {
+  String date;
+  String timein;
+  String timeout;
+
+  TimeLogModel({required this.date, required this.timein, required this.timeout});
+ 
+  factory TimeLogModel.fromMap(Map<String, dynamic> data) {
+    return TimeLogModel
+      (date: data['date'] ?? '',
+       timein: data['timein'] ?? '',
+       timeout: data['timeout'] ?? ''
+       );
+  }
+
+  Map<String, dynamic> toMap() => {
+        'date': date,
+        'timein': timein,
+        'timeout': timeout
+    };
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "828488657826",
+    "project_id": "tipon-timekeeper",
+    "storage_bucket": "tipon-timekeeper.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828488657826:android:8369b824547a17412b20fb",
+        "android_client_info": {
+          "package_name": "com.example.tipon_timekeeping_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtgx0utbLZB717izfkow1mx8T3PNxUQwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
