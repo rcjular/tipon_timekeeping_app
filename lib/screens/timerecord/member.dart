@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tipon_timekeeping_app/widgets/member_tile.dart';
 
 class MemberScreen extends StatefulWidget {
   const MemberScreen({super.key});
@@ -8,106 +9,115 @@ class MemberScreen extends StatefulWidget {
 }
 
 class _MemberScreen extends State<MemberScreen> {
-  final List<String> items = ["Date 2025-01-01", "In 0800", "Out 1500"];
+   final List<Map<String, String>> cardData = const [
+    {
+      "memberName": "Jenon Lee",
+      "jobTitle": "IT Manager",
+      "department": "Harmony"
+    },
+    {
+      "memberName": "Adelia Ombrosa",
+      "jobTitle": "Marketing Manager",
+      "department": "Symphony"
+    },
+    {
+      "memberName": "Kia  Hernandez",
+      "jobTitle": "Support Manager",
+      "department": "Symphony"
+    },
+  ];
 
-  void _addItem() {
-    TextEditingController controller = TextEditingController();
 
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Add Item"),
-        content: TextField(
-          controller: controller,
-          decoration: const InputDecoration(hintText: "Enter item name"),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
-          ElevatedButton(
-            onPressed: () {
-              setState(() => items.add(controller.text));
-              Navigator.pop(context);
-            },
-            child: const Text("Add"),
-          ),
-        ],
-      ),
-    );
-  }
+  // void _addItem() {
+  //   TextEditingController controller = TextEditingController();
 
-  void _editItem(int index) {
-    TextEditingController controller = TextEditingController(text: items[index]);
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: const Text("Add Item"),
+  //       content: TextField(
+  //         controller: controller,
+  //         decoration: const InputDecoration(hintText: "Enter item name"),
+  //       ),
+  //       actions: [
+  //         TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
+  //         ElevatedButton(
+  //           onPressed: () {
+  //             setState(() => items.add(controller.text));
+  //             Navigator.pop(context);
+  //           },
+  //           child: const Text("Add"),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Edit Item"),
-        content: TextField(
-          controller: controller,
-          decoration: const InputDecoration(hintText: "Edit item"),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
-          ElevatedButton(
-            onPressed: () {
-              setState(() => items[index] = controller.text);
-              Navigator.pop(context);
-            },
-            child: const Text("Save"),
-          ),
-        ],
-      ),
-    );
-  }
+  // void _editItem(int index) {
+  //   TextEditingController controller = TextEditingController(text: cardData[index]);
 
-  void _deleteItem(int index) {
-    setState(() => items.removeAt(index));
-  }
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: const Text("Edit Item"),
+  //       content: TextField(
+  //         controller: controller,
+  //         decoration: const InputDecoration(hintText: "Edit item"),
+  //       ),
+  //       actions: [
+  //         TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
+  //         ElevatedButton(
+  //           onPressed: () {
+  //             setState(() => cardData[index] = controller.text as Map<String, String>);
+  //             Navigator.pop(context);
+  //           },
+  //           child: const Text("Save"),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // void _deleteItem(int index) {
+  //   setState(() => cardData.removeAt(index));
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Select Member"),
+        title: const Text("Members"),
         centerTitle: true,
       ),
 
       body: ListView.builder(
         padding: const EdgeInsets.all(12),
-        itemCount: items.length,
+        itemCount: cardData.length,
         itemBuilder: (context, index) {
-          return Card(
-            elevation: 3,
-            margin: const EdgeInsets.symmetric(vertical: 6),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            child: ListTile(
-              leading: const Icon(Icons.event_note, color: Colors.indigo),
-              title: Text(
-                items[index],
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.blue),
-                    onPressed: () => _editItem(index),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () => _deleteItem(index),
-                  ),
-                ],
-              ),
-            ),
+          final item = cardData[index];
+          return MemberTile(
+            memberName: item["memberName"]!,
+            jobTitle: item["jobTitle"]!,
+            department: item["department"]!,
+            onAddTimeRecord: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("${item["memberName"]} adding DTR!")),
+              );
+            },
+            onDeactivate: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("${item["memberName"]} deactivate!")),
+              );
+            },
           );
         },
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: _addItem,
-        backgroundColor: Colors.indigo,
-        child: const Icon(Icons.add),
+        onPressed: () {
+              },
+        backgroundColor: Colors.lightBlue,
+        child: const Icon(Icons.add_to_queue),
       ),
     );
   }
