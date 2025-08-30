@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         centerTitle: true, // ensures title is centered
         title: Text(
-          "Hi Team Leader (Evelyn)",
+          "Hi Team Leader ($displayName)",
           style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
